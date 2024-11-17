@@ -8,7 +8,7 @@ class Server:
         self.host = host
         self.port = port
         self.clients = []
-        self.lock = threading.Lock()  # To handle concurrent access to clients
+        self.lock = threading.Lock()  
 
     def start_server(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -52,7 +52,7 @@ class Server:
         print(f"[-] User {username} disconnected.")
 
     def broadcast(self, message, sender_socket):
-        with self.lock:  # Lock while broadcasting
+        with self.lock: 
             for client_socket, _, _ in self.clients:
                 if client_socket != sender_socket:
                     client_socket.send(message.encode())
@@ -60,10 +60,10 @@ class Server:
 
     def update_users(self):
         user_list = ",".join(f"{username} ({ip})" for _, username, ip in self.clients)
-        with self.lock:  # Lock while updating users
+        with self.lock:  
             for client_socket, _, _ in self.clients:
                 client_socket.send(f"USERS:{user_list}".encode())
 
 if __name__ == "__main__":
-    server = Server("192.168.0.16", 65000)
+    server = Server("192.168.0.12", 65000) # cambiar aqui la ip
     server.start_server()

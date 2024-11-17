@@ -122,5 +122,5 @@ class Chat(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    chat_client = Chat("192.168.0.16", 65000)  # Cambia la IP y el puerto según sea necesario
+    chat_client = Chat("192.168.0.12", 65000)  # Cambia la ip y el puerto según sea necesario
     sys.exit(app.exec())
